@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>My Docs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">My Journal Entries</h2>
+        {% if blogs %}
+            <ul class="list-group">
+                {% for entry in blogs %}
+                    <li class="list-group-item mb-3 d-flex justify-content-between align-items-start">
+                        <div>
+                            <strong>{{ entry.date }}</strong><br>
+                            <pre class="mb-0">{{ entry.text }}</pre>
+                        </div>
+                        <form method="post" action="{{ url_for('remove_entry', index=loop.index0) }}">
+                            <button type="submit" class="btn btn-danger btn-sm ms-3">Remove</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No entries yet.</p>
+        {% endif %}
+        <a href="{{ url_for('home') }}" class="btn btn-secondary mt-4">Back to Home</a>
+    </div>
+</body>
+</html>
